@@ -52,6 +52,8 @@ select round(sum(age)) from developers;
 -- Задача. Вставьте в таблицу developers запись
 -- с полем date с текущим моментом времени в формате 'год-месяц-день часы:минуты:секунды'.
 
+SELECT (now()::date,now()::time) as corrent_date_and_time FROM developers;
+
 alter table developers add column working_year timestamp;
 select *
 from developers;
@@ -74,6 +76,8 @@ where id = 51;
 alter table developers drop column working_year;
 
 -- Задача. Вставьте в таблицу developers запись с полем date с текущей датой в формате 'год-месяц-день'.
+SELECT *, (now()::date) as "current_date" FROM developers;
+
 insert into developers (first_name, last_name, email, gender, phone_number, salary, country, age, working_year)
 values ('Orazali', 'Alimbekov', 'orozali@gmail.com','MALE', '0555555555', 21000, 'Prague', 18, current_date);
 
@@ -86,15 +90,12 @@ from developers where id = 53;
 
 -- На BETWEEN
 -- Выберите из таблицы developers записи c зарплатой от 1000 до 3000.
-
+select * from developers where salary between 1000 and 3000;
 
 -- Выберите из таблицы developers записи c id от 3 до 10 и зарплатой от 300 до 500.
 select id as developer_id, first_name, salary from developers where id >= 3 and id <= 10 and salary > 1500  and salary < 25000;
 
 select * from developers ;
--- На AS
--- Выберите из таблицы developers все записи так, чтобы вместо id был
-
 
 -- На DISTINCT
 -- Выберите из таблицы developers все записи так, чтобы туда попали только записи с разной зарплатой
@@ -108,9 +109,13 @@ select distinct age from developers where age >= 25;
 
 -- На MIN и MAX
 -- Найдите в таблице developers минимальную зарплату.
-select  min(salary) as min_salary , max(salary) max_salary from developers;
+select  min(salary) as min_salary from developers;
 
 -- Найдите в таблице developers максимальную зарплату.
+select  max(salary) as min_salary from developers;
+
+select  min(salary) as min_salary , max(salary) max_salary from developers;
+
 
 -- На SUM
 --  Найдите в таблице developers суммарную зарплату.
